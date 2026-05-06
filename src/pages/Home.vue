@@ -14,9 +14,9 @@ axios.get('https://movie.pequla.com/api/movie')
   <div class="d-flex flex-wrap justify-content-center gap-3">
     <Loading v-if="movies.length === 0"/>
     <div class="card movie-card text-center" v-for="movie in movies">
-
+      <RouterLink :to="`/details/${movie.movieId}`">
       <img :src="movie.poster" class="card-img-top" :alt="movie.title">
-
+      </RouterLink>
       <div class="card-body">
         <h5 class="card-title">{{ movie.title }}</h5>
         <h6 class="card-subtitle mb-2 text-body-secondary">{{ movie.director.name }}</h6>

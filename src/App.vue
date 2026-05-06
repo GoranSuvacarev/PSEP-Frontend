@@ -13,10 +13,10 @@ const year = new Date().getFullYear()
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <RouterLink class="nav-link" to="/">Home</RouterLink>
+            <RouterLink class="nav-link" to="/"><i class="fa-solid fa-house"></i>Home</RouterLink>
           </li>
           <li class="nav-item">
-            <RouterLink class="nav-link" to="/about">About</RouterLink>
+            <RouterLink class="nav-link" to="/about"><i class="fa-solid fa-circle-info"></i>About</RouterLink>
           </li>
         </ul>
       </div>
