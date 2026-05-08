@@ -2,11 +2,13 @@
 import axios from 'axios';
 import { ref } from 'vue';
 import Loading from "@/components/Loading.vue";
+import {DataService} from "@/services/data.service.ts";
+import type {MovieModel} from "@/models/movie.model.ts";
 
-const movies = ref<any[]>([])
+const movies = ref<MovieModel[]>([])
 
-axios.get('https://movie.pequla.com/api/movie')
-  .then(rsp => movies.value = rsp.data.sort((a: any, b: any) => b.movieId - a.movieId))
+DataService.getMovies()
+  .then(rsp => movies.value = rsp.data.sort((a, b) => b.movieId - a.movieId))
 </script>
 
 <template>

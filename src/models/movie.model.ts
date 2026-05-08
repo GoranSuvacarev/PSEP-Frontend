@@ -39,4 +39,14 @@ export interface MovieModel {
             createdAt: string
         }
     }[]
+    timetables: {
+        timetableId: number
+        cinemaId: number
+        startTime: string
+        price: number
+        cinema: {
+            cinemaId: number
+            name: string
+        }
+    }[]
 }
