@@ -1,6 +1,8 @@
 import About from '@/pages/About.vue'
 import Home from '@/pages/Home.vue'
 import Details from '@/pages/Details.vue'
+import Cinema from '@/pages/Cinema.vue'
+import EditCinema from '@/pages/EditCinema.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -25,6 +27,20 @@ const router = createRouter({
       component: Details,
       meta: {
         title: 'Details'
+      }
+    },
+    {
+      path: '/cinemas',
+      component: Cinema,
+      meta: {
+        title: 'Cinemas'
+      }
+    },
+    {
+      path: '/cinemas/:id/',
+      component: EditCinema,
+      meta: {
+        title: 'Edit Cinema'
       }
     },
   ],
