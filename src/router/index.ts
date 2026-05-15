@@ -5,8 +5,11 @@ import Cinema from '@/pages/Cinema.vue'
 import EditCinema from '@/pages/EditCinema.vue'
 import AddCinema from '@/pages/AddCinema.vue'
 import EditTimetable from '@/pages/EditTimetable.vue'
+import Login from '@/pages/Login.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import AddTimetable from "@/pages/AddTimetable.vue";
+import Signup from "../pages/Signup.vue";
+import Verify from "@/pages/Verify.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -65,6 +68,27 @@ const router = createRouter({
       component: AddTimetable,
       meta: {
         title: 'Add Timetable'
+      }
+    },
+    {
+      path: '/login',
+      component: Login,
+      meta: {
+        title: 'Login'
+      }
+    },
+    {
+      path: '/signup',
+      component: Signup,
+      meta: {
+        title: 'Signup'
+      }
+    },
+    {
+      path: '/verify',
+      component: Verify,
+      meta: {
+        title: 'Verify'
       }
     },
   ],
