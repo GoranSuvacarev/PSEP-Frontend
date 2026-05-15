@@ -2,12 +2,12 @@
 import axios from 'axios';
 import { ref } from 'vue';
 import Loading from "@/components/Loading.vue";
-import {DataService} from "@/services/data.service.ts";
 import type {MovieModel} from "@/models/movie.model.ts";
+import {MovieService} from "@/services/movie.service.ts";
 
 const movies = ref<MovieModel[]>([])
 
-DataService.getMovies()
+MovieService.getMovies()
   .then(rsp => movies.value = rsp.data.sort((a, b) => b.movieId - a.movieId))
 </script>
 

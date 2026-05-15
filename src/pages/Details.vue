@@ -3,7 +3,9 @@ import { computed, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import Loading from '@/components/Loading.vue'
 import type { MovieModel } from '@/models/movie.model'
-import { DataService } from '@/services/data.service.ts'
+import {MovieService} from "@/services/movie.service.ts";
+import type {TimetableModel} from "@/models/time.model.ts";
+import {TimetableService} from "@/services/time.service.ts";
 
 const route = useRoute()
 const id = Number(route.params.id)
@@ -19,7 +21,6 @@ const genres = computed(() => {
 const actors = computed(() => {
   return movie.value?.movieActors.map((movieActor) => movieActor.actor.name) || []
 })
-
 
 const projections = computed(() => {
   return [...(movie.value?.timetables || [])].sort((a, b) => {
@@ -50,7 +51,7 @@ const handleProjectionClick = (timetableId: number) => {
   console.log(`Ticket purchase placeholder for timetable ID: ${timetableId}`)
 }
 
-DataService.getMovieById(id)
+MovieService.getById(id)
     .then((rsp) => {
       movie.value = rsp.data
       document.title = `${rsp.data.title} | PSEP 2026`
@@ -61,6 +62,14 @@ DataService.getMovieById(id)
     .finally(() => {
       loading.value = false
     })
+
+function remove(timetable: TimetableModel) {
+  if (!confirm(`Are you sure you want to delete ${timetable.cinema?.name}?`))
+    return
+  TimetableService.deleteById(timetable.timetableId).then(response => {
+    movie.value!.timetables = movie.value!.timetables.filter(t => t.timetableId !== timetable.timetableId)
+  })
+}
 </script>
 
 <template>
@@ -199,9 +208,28 @@ DataService.getMovieById(id)
                 <span class="d-block small text-body-secondary mt-2">
                   Click to buy ticket
                 </span>
-              </span>
-            </button>
-          </div>
+
+                    <span class="d-flex gap-2 mt-4">
+                      <RouterLink
+                          :to="'/timetable/' + projection.timetableId"
+                          class="btn btn-sm btn-outline-primary"
+                          @click.stop
+                      >
+                        Edit
+                      </RouterLink>
+
+                      <button
+                          type="button"
+                          class="btn btn-sm btn-outline-danger"
+                          @click="remove(projection)"
+                      >
+                        Delete
+                      </button>
+                    </span>
+                  </span>
+                </button>
+
+              </div>
 
           <p v-else class="text-body-secondary mb-0">
             No projections are currently available for this movie.

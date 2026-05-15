@@ -2,30 +2,28 @@
 import Loading from '@/components/Loading.vue';
 import { CinemaService } from '@/services/cinema.service';
 import { ref } from 'vue';
-import {useRoute, useRouter} from 'vue-router';
-import type {CinemaModel} from "@/models/cinema.model.ts";
+import {useRouter} from 'vue-router';
 
-const route = useRoute()
 const router = useRouter()
-const id = Number(route.params.id)
 
-const cinema = ref<CinemaModel>()
-CinemaService.getById(id)
-    .then(rsp => cinema.value = rsp.data)
+const cinema = ref({
+  name: '',
+  address: ''
+})
 
-function update(){
-  if (!confirm('Save changes?')) return
-  CinemaService.updateCinema(id, cinema.value).then(rsp => {
+function create(){
+  if (!confirm('Create cinema?')) return
+  CinemaService.createCinema(cinema.value).then(rsp => {
       router.push('/cinemas')
     })
-    .catch(err => alert('Error updating cinema: ' + err.message))
+    .catch(err => alert('Error creating cinema: ' + err.message))
 }
 </script>
 
 <template>
-  <div class="card crud-container" v-if="cinema">
+  <div class="card crud-container">
     <div class="card-header fw-bold">
-      Edit Cinema
+      Create Cinema
     </div>
     <div class="card-body">
       <div class="mb-3">
@@ -38,10 +36,9 @@ function update(){
       </div>
     </div>
     <div class="card-footer">
-      <button type="button" class="btn btn-success" @click="update">
-        <i class="fa-solid fa-floppy-disk"></i> Save
+      <button type="button" class="btn btn-success" @click="create()">
+        <i class="fa-solid fa-floppy-disk"></i> Create
       </button>
     </div>
   </div>
-  <Loading v-else />
 </template>

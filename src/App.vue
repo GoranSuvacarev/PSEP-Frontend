@@ -21,6 +21,9 @@ const year = new Date().getFullYear()
           <li class="nav-item">
             <RouterLink class="nav-link" to="/about"><i class="fa-solid fa-circle-info"></i>About</RouterLink>
           </li>
+          <li class="nav-item">
+            <RouterLink class="nav-link" to="/timetable/add"><i class="fa-solid fa-clock"></i>Add Timetable</RouterLink>
+          </li>
         </ul>
       </div>
     </div>

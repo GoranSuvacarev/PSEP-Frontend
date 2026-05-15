@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { DataService } from '../services/data.service';
-import Loading from "@/components/Loading.vue";
+import { CinemaService } from '../services/cinema.service';
 
 const cinemas = ref<any[]>([]);
 
-DataService.getCinemas().then((response) => {
+CinemaService.getCinemas().then((response) => {
     cinemas.value = response.data;
 })
 
@@ -13,7 +12,7 @@ function remove(cinema: any) {
   if (!confirm(`Are you sure you want to delete ${cinema.name}?`))
     return
 
-  DataService.deleteCinemaById(cinema.cinemaId).then(response => {
+  CinemaService.deleteById(cinema.cinemaId).then(response => {
     cinemas.value = cinemas.value?.filter(c => c.cinemaId !== cinema.cinemaId)
   })
 
@@ -51,7 +50,7 @@ function remove(cinema: any) {
   </table>
   <Loading v-else />
   <div class="card-footer">
-    <RouterLink class="btn btn-sm btn-primary" to="/cinemas/add">
+    <RouterLink class="btn btn-sm btn-primary" to="/cinemas/add" >
       Create Cinema
     </RouterLink>
   </div>

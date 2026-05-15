@@ -1,3 +1,5 @@
+import type {TimetableModel} from "@/models/time.model.ts";
+
 export interface MovieModel {
     movieId: number
     internalId: string
@@ -39,14 +41,5 @@ export interface MovieModel {
             createdAt: string
         }
     }[]
-    timetables: {
-        timetableId: number
-        cinemaId: number
-        startTime: string
-        price: number
-        cinema: {
-            cinemaId: number
-            name: string
-        }
-    }[]
+    timetables: TimetableModel[]
 }
